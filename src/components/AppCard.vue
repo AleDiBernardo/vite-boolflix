@@ -3,9 +3,14 @@ export default {
   props: {
     title: String,
     originalTitle: String,
-    lang: String,
+    flag: String,
     vote_avg: Number,
   },
+  methods:{
+    getImgPath(flag){
+        return new URL(`../assets/${flag}`, import.meta.url).href
+    }
+  }
 };
 </script>
 
@@ -13,7 +18,8 @@ export default {
   <div class="card">
     <h4>Title: {{ title }}</h4>
     <h5>Original Title: {{ originalTitle }}</h5>
-    <h6>Original Language: {{ lang }}</h6>
+    <img v-if="flag" :src="getImgPath(flag)" alt="">
+    <h6 v-else>Non Disponibile</h6>
     <h6>Vote: {{ vote_avg }}</h6>
   </div>
 </template>
@@ -23,7 +29,11 @@ export default {
 @use "../style/partials/variables" as *;
 
 .card{
-    @include flex(column,flex-start,flex-start);
-    height: 100%;    
+    @include flex(column,space-between,flex-start);
+    height: 100%;   
+    
+    img{
+        max-width: 15%;
+    }
 }
 </style>
