@@ -22,7 +22,11 @@ export default{
 
             axios.get("https://api.themoviedb.org/3/search/movie",{params}).then((resp)=>{
                 this.store.movieList = resp.data.results;
-                console.log(this.store.movieList);
+                console.log("Movie: " + this.store.movieList);
+            })
+            axios.get("https://api.themoviedb.org/3/search/tv",{params}).then((resp)=>{
+                this.store.seriesList = resp.data.results;
+                console.log("Series: " + this.store.seriesList);
             })
 
             this.store.userQuery = ""
