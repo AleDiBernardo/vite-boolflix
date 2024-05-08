@@ -68,10 +68,17 @@ export default {
 @use "../style/partials/mixins" as *;
 @use "../style/partials/variables" as *;
 
-.container {
-  @include flex(row, space-between, center);
-  .col {
-    height: 300px;
-  }
+
+main{
+    overflow: scroll;
+    padding: 30px 0;
+    height: calc(100vh - $header-heigth);
+
+    .container {
+      @include flex(row, space-between, center);
+      .col {
+        min-height: 300px;
+      }
+    }
 }
 </style>

@@ -30,7 +30,7 @@ export default {
 
 .card{
     @include flex(column,space-between,flex-start);
-    height: 100%;   
+    height: 100%; 
     
     img{
         max-width: 15%;

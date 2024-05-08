@@ -50,10 +50,13 @@ export default{
 
 
 header{
+    @include flex(row,center,center);
+
+    width: 100%;
     height: $header-heigth;
     padding: 10px 0;
     background-color: $primary-color;
-    @include flex(row,center,center);
+
     
     .container{
         @include flex(row,space-between,center);
