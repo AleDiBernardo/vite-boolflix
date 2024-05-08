@@ -1,21 +1,15 @@
 <script>
-import {store} from "./store";
+import {store} from "../store.js" 
 import axios from "axios";
-import AppHeader from "./components/AppHeader.vue"
+
 export default{
-    components:{
-        AppHeader
-    },
     data(){
         return{
-            store,
+            store
         }
     },
-    created(){
-        this.getMovie()
-    },
     methods:{
-        getMovie(){
+        getResult(){
             const params = {
                 query: this.store.userQuery,
                 api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
@@ -32,9 +26,13 @@ export default{
 </script>
 
 <template>
-<AppHeader/>
+<div>
+    <input type="text" v-model="this.store.userQuery">
+    <input type="button" value="Search" @click="getResult">
+</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@use "../style/partials/mixins" as *;
 
 </style>
