@@ -1,13 +1,31 @@
 <script>
+import AppCard from "./AppCard.vue";
+import {store} from "../store.js" 
 export default{
-
+    components:{
+        AppCard
+    },
+    data(){
+        return{
+            store
+        }
+    }
 }
 </script>
 
 <template>
 <main>
     <div class="container">
-        
+        <div class="row">
+            <div class="col" v-for="curMovie in store.movieList">
+                <AppCard
+                    :title="curMovie.title"
+                    :originalTitle="curMovie.original_title"
+                    :lang="curMovie.original_language"
+                    :vote_avg="curMovie.vote_average"
+                />
+            </div>
+        </div>
     </div>
 </main>
 </template>

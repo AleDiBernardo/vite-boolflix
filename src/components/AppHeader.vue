@@ -1,8 +1,32 @@
 <script>
 import AppSearchBar from "./AppSearchBar.vue"
+import {store} from "../store.js" 
+import axios from "axios"
+
 export default{
+    data(){
+        return{
+            store
+        }
+    },
     components:{
         AppSearchBar
+    },
+    methods:{
+        getResult(){
+            const params = {
+                query: this.store.userQuery,
+                api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
+                language: "it-IT"
+            }
+
+            axios.get("https://api.themoviedb.org/3/search/movie",{params}).then((resp)=>{
+                this.store.movieList = resp.data.results;
+                console.log(this.store.movieList);
+            })
+
+            this.store.userQuery = ""
+        }
     }
 }
 </script>
@@ -13,7 +37,7 @@ export default{
     <div class="logo">
         <span>LOGO</span>
     </div>
-    <AppSearchBar/>
+    <AppSearchBar @filter="getResult"/>
     
 </div>
 </header>
