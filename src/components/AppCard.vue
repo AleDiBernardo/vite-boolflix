@@ -72,7 +72,7 @@ export default {
       </div>
 
       <div v-else class="card-front notFound">
-        <h5>Thumb not found</h5>
+        <!-- <h5>Thumb not found</h5> -->
       </div>
 
       <div class="card-back">
@@ -118,6 +118,7 @@ export default {
   height: 100%;
   border: none;
   perspective: 1000px;
+  background: none;
 
   .card-inner {
     width: 100%;
@@ -179,10 +180,17 @@ export default {
   }
 
   .card-front.notFound {
-    background-color: lightgray;
-    border-radius: 5px;
-
     @include flex(row, center, center);
+    background-color:black;
+    color: white;
+    text-transform: uppercase;
+    font-size: 20px;
+    border-radius: 5px;
+    font-family: monospace;
+    background-image: url(../assets/icon.ico);
+    background-repeat: no-repeat;
+    background-position: center;
+
   }
 }
 </style>

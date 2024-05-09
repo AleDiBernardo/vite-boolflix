@@ -42,10 +42,11 @@ main{
     overflow: scroll;
     padding: 30px 0;
     height: calc(100vh - $header-heigth);
+    background-image: url(../assets/background.jpg);
 
     .container {
       @include flex(row, space-between, center);
-
+      
     }
 }
 </style>

@@ -39,7 +39,9 @@ export default{
 <header>
 <div class="container">
     <div class="logo">
-        <span>LOGO</span>
+        <a href="#">
+            <img src="../assets/logo.png" alt="">
+        </a>
     </div>
     <AppSearchBar @filter="getResult"/>
     
@@ -60,10 +62,15 @@ header{
     height: $header-heigth;
     padding: 10px 0;
     background-color: $primary-color;
+    
 
     
     .container{
         @include flex(row,space-between,center);
+
+        .logo{
+            max-width: 150px;
+        }
     }
 }
 
