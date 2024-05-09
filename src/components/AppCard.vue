@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       isFlag: true,
-      isBack: false,
+      roundedVote: Math.ceil(this.results.vote_average / 2),
     };
   },
   methods: {
@@ -52,7 +52,7 @@ export default {
 <template>
   <div class="card">
     <div class="card-inner">
-      <div v-if="results.poster_path" class="card-front" >
+      <div v-if="results.poster_path" class="card-front">
         <img :src="Image" alt="" class="thumb" />
       </div>
 
@@ -72,7 +72,17 @@ export default {
 
         <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
         <h6 v-else>Non Disponibile</h6>
-        <h6>Vote: {{ results.vote_average }}</h6>
+        <div class="d-flex">
+          Vote:
+          <ul class="d-flex flex-row gap-1">
+            <li v-for="_ in this.roundedVote" v-if="this.roundedVote > 0">
+              <i class="fa-solid fa-star"></i>
+            </li>
+            <li v-else>
+              No reviews
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -94,7 +104,7 @@ export default {
     transition: transform 0.5s;
     transform-style: preserve-3d;
   }
-  
+
   &:hover .card-inner {
     transform: rotateY(180deg);
   }
@@ -107,9 +117,22 @@ export default {
     padding: 5px;
     // backface-visibility: hidden;
 
-    img{
+    img {
       max-width: 15%;
     }
+
+    ul{
+      padding-left: 5px;
+    }
+
+    ul > li{
+      list-style-type: none;
+
+      i{
+        color: yellow;
+      }
+    }
+
   }
 
   &:hover .card-back {
@@ -121,27 +144,27 @@ export default {
   &:hover .card-front.notFound {
     display: none;
   }
-  
-  .card-front{
+
+  .card-front {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     @include flex(column, space-between, flex-start);
   }
-  
+
   .thumb {
     max-width: 15%;
     height: 100%;
     border-radius: 5px;
   }
-  
+
   .card-front.notFound {
     background-color: lightgray;
     border-radius: 5px;
-  
+
     @include flex(row, center, center);
   }
-  
+
   .thumb {
     max-width: 100%;
   }
