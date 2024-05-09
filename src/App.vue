@@ -33,7 +33,6 @@ export default{
                 this.store.seriesList = resp.data.results;
                 console.log("Series: " + this.store.seriesList);
             })
-            // bca2cd4e0092d2eac7fdb4f97170e2fb
         }
     }
 }

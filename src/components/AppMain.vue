@@ -20,12 +20,12 @@ export default {
       <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2">
         <div class="col p-2" v-for="curMovie in store.movieList">
           <AppCard
-            :movie="curMovie"
+            :results="curMovie"
           />
         </div>
         <div class="col p-2" v-for="curSeries in store.seriesList">
           <AppCard
-            :series="curSeries"
+            :results="curSeries"
           />
         </div>
       </div>
@@ -45,9 +45,9 @@ main{
 
     .container {
       @include flex(row, space-between, center);
-      .col {
-        min-height: 300px;
-      }
+      // .col {
+      //   min-height: 300px;
+      // }
     }
 }
 </style>

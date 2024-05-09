@@ -1,12 +1,17 @@
 <script>
 export default {
   props: {
-    movie: Object,
-    series: Object,
+    results: Object,
+  },
+  computed: {
+    Image() {
+      return `https://image.tmdb.org/t/p/w342${this.results.poster_path}`;
+    },
   },
   data() {
     return {
       isFlag: true,
+      isBack: false,
     };
   },
   methods: {
@@ -45,22 +50,31 @@ export default {
 </script>
 
 <template>
-  <div v-if="movie" class="card">
-    <h2>Movie</h2>
-    <h4>{{ movie.title }}</h4>
-    <h5>{{ movie.original_title }}</h5>
-    <img v-if="isFlag" :src="getFlag(movie.original_language)" alt="" />
-    <h6 v-else>Non Disponibile</h6>
-    <h6>Vote: {{ movie.vote_average }}</h6>
-  </div>
-  <div v-if="series" class="card">
-    <h2>Series</h2>
+  <div class="card">
+    <div class="card-inner">
+      <div v-if="results.poster_path" class="card-front">
+        <img :src="Image" alt="" class="thumb" />
+      </div>
 
-    <h4>{{ series.name }}</h4>
-    <h5>{{ series.original_name }}</h5>
-    <img v-if="isFlag" :src="getFlag(series.original_language)" alt="" />
-    <h6 v-else>Non Disponibile</h6>
-    <h6>Vote: {{ series.vote_average }}</h6>
+      <div v-else class="card-front notFound">
+        <h5>Thumb not found</h5>
+      </div>
+
+      <div class="d-none card-back">
+        <h2 v-if="results.title">Movie</h2>
+        <h2 v-else>Series</h2>
+
+        <h4 v-if="results.title">{{ results.title }}</h4>
+        <h4 v-else>{{ results.name }}</h4>
+
+        <h5 v-if="results.original_title">{{ results.original_title }}</h5>
+        <h5 v-else>{{ results.original_name }}</h5>
+
+        <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
+        <h6 v-else>Non Disponibile</h6>
+        <h6>Vote: {{ results.vote_average }}</h6>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -71,12 +85,43 @@ export default {
 .card {
   @include flex(column, space-between, flex-start);
   height: 100%;
-  padding: 10px;
-    background-color: lightcyan;
-  img {
+  border: none;
+  perspective: 1000px;
+
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+  }
+  
+  &:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .card-front,
+  .card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    @include flex(column, space-between, flex-start);
+  }
+  
+  .thumb {
     max-width: 15%;
-    border: 2px solid black;
+    height: 100%;
     border-radius: 5px;
+  }
+  
+  .card-front.notFound {
+    background-color: lightgray;
+    border-radius: 5px;
+  
+    @include flex(row, center, center);
+  }
+  
+  .thumb {
+    max-width: 100%;
   }
 }
 </style>
