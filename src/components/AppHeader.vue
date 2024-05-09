@@ -8,7 +8,7 @@ export default{
         return{
             store,
             links: ["Home","TV Series","Films","Original","Recently Added", "My Watchlist"],
-            activeIndex: null
+            activeIndex: 0
         }
     },
     components:{

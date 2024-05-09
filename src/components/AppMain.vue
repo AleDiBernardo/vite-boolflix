@@ -43,7 +43,7 @@ export default {
 
 
 main{
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 30px 0;
     height: calc(100vh - $header-heigth);
     background-color: black;
