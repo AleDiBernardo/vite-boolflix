@@ -52,7 +52,7 @@ export default {
 <template>
   <div class="card">
     <div class="card-inner">
-      <div v-if="results.poster_path" class="card-front">
+      <div v-if="results.poster_path" class="card-front" >
         <img :src="Image" alt="" class="thumb" />
       </div>
 
@@ -60,7 +60,7 @@ export default {
         <h5>Thumb not found</h5>
       </div>
 
-      <div class="d-none card-back">
+      <div class="card-back">
         <h2 v-if="results.title">Movie</h2>
         <h2 v-else>Series</h2>
 
@@ -98,9 +98,31 @@ export default {
   &:hover .card-inner {
     transform: rotateY(180deg);
   }
-  
-  .card-front,
+
   .card-back {
+    display: none;
+    background-color: lightcoral;
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    // backface-visibility: hidden;
+
+    img{
+      max-width: 15%;
+    }
+  }
+
+  &:hover .card-back {
+    display: block;
+    transform: scaleX(-1);
+  }
+
+  &:hover .card-front,
+  &:hover .card-front.notFound {
+    display: none;
+  }
+  
+  .card-front{
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
