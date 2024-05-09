@@ -91,19 +91,17 @@ export default {
         <div class="d-flex">
           Vote:
           <ul class="d-flex flex-row gap-1">
-            <!-- <li v-for="_ in 5" :key="_" v-if="this.roundedVote > 0"> -->
-
-            <li v-for="_ in roundedVote" :key="_">
+            
+            <li v-for="_ in roundedVote" :key="_" v-if="this.roundedVote > 0">
               <i class="fa-solid fa-star"></i>
             </li>
+            <li v-else>
+              No reviews
+            </li>
 
-            <li v-for="_ in emptyStar" :key="_">
+            <li v-for="_ in emptyStar" :key="_" v-if="this.roundedVote > 0">
               <i class="fa-regular fa-star"></i>
             </li>
-            <!-- </li> -->
-            <!-- <li v-else>
-              No reviews
-            </li> -->
           </ul>
         </div>
       </div>
