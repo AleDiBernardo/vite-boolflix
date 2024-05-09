@@ -119,6 +119,7 @@ export default {
   border: none;
   perspective: 1000px;
   background: none;
+  cursor: pointer;
 
   .card-inner {
     width: 100%;
@@ -134,10 +135,11 @@ export default {
   .card-back {
     display: none;
     background-color: black;
+    border: 3px solid red;
     color: white;
     height: 100%;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
 
     img {
       max-width: 15%;
@@ -167,10 +169,13 @@ export default {
   }
 
   .card-front {
+    @include flex(column, space-between, flex-start);
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    @include flex(column, space-between, flex-start);
+    border: 3px solid red;
+    border-radius: 5px;
+
   }
 
   .thumb {
@@ -181,8 +186,7 @@ export default {
 
   .card-front.notFound {
     @include flex(row, center, center);
-    background-color:black;
-    color: white;
+    background-color:white;
     text-transform: uppercase;
     font-size: 20px;
     border-radius: 5px;

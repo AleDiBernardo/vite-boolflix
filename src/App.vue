@@ -15,12 +15,11 @@ export default{
         }
     },
     created(){
-        this.getMovie()
+        // this.getMovie()
     },
     methods:{
         getMovie(){
             const params = {
-                query: this.store.userQuery,
                 api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
                 language: "it-IT"
             }
