@@ -45,9 +45,9 @@ main{
 
     .container {
       @include flex(row, space-between, center);
-      // .col {
-      //   min-height: 300px;
-      // }
+      .col {
+        // min-height: 354px;
+      }
     }
 }
 </style>

@@ -3,20 +3,27 @@ export default {
   props: {
     results: Object,
   },
+  created() {
+    this.totalStar = 5;
+  },
   computed: {
     Image() {
       return `https://image.tmdb.org/t/p/w342${this.results.poster_path}`;
     },
-    
+    roundedVote() {
+      return Math.ceil(this.results.vote_average / 2);
+    },
+    emptyStar() {
+      return this.totalStar - this.roundedVote;
+    },
   },
   data() {
     return {
-      isFlag: true,
-      roundedVote: Math.ceil(this.results.vote_average / 2),
-      maxCharLimit: 150
+      isFlag: true,      
+      maxCharLimit: 150,
     };
   },
-  
+
   methods: {
     getFlag(curMovie) {
       console.log(curMovie);
@@ -48,11 +55,11 @@ export default {
 
       return new URL(`../assets/${flag}`, import.meta.url).href;
     },
-    limitChars(value,maxLength){
-      if (!value) return '';
+    limitChars(value, maxLength) {
+      if (!value) return "";
       if (value.length <= maxLength) return value;
-      return value.substring(0, maxLength) + '...';
-    }
+      return value.substring(0, maxLength) + "...";
+    },
   },
 };
 </script>
@@ -80,16 +87,23 @@ export default {
 
         <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
         <h6 v-else>Non Disponibile</h6>
-        <div>{{ limitChars(results.overview,this.maxCharLimit) }}</div>
+        <div>{{ limitChars(results.overview, this.maxCharLimit) }}</div>
         <div class="d-flex">
           Vote:
           <ul class="d-flex flex-row gap-1">
-            <li v-for="_ in this.roundedVote" v-if="this.roundedVote > 0">
+            <!-- <li v-for="_ in 5" :key="_" v-if="this.roundedVote > 0"> -->
+
+            <li v-for="_ in roundedVote" :key="_">
               <i class="fa-solid fa-star"></i>
             </li>
-            <li v-else>
-              No reviews
+
+            <li v-for="_ in emptyStar" :key="_">
+              <i class="fa-regular fa-star"></i>
             </li>
+            <!-- </li> -->
+            <!-- <li v-else>
+              No reviews
+            </li> -->
           </ul>
         </div>
       </div>
@@ -130,18 +144,17 @@ export default {
       max-width: 15%;
     }
 
-    ul{
+    ul {
       padding-left: 5px;
     }
 
-    ul > li{
+    ul > li {
       list-style-type: none;
 
-      i{
+      i {
         color: yellow;
       }
     }
-
   }
 
   &:hover .card-back {
@@ -162,7 +175,7 @@ export default {
   }
 
   .thumb {
-    max-width: 15%;
+    // max-width: 100%;
     height: 100%;
     border-radius: 5px;
   }
@@ -172,10 +185,6 @@ export default {
     border-radius: 5px;
 
     @include flex(row, center, center);
-  }
-
-  .thumb {
-    max-width: 100%;
   }
 }
 </style>
