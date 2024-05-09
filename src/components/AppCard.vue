@@ -76,34 +76,39 @@ export default {
       </div>
 
       <div class="card-back">
-        <h2 v-if="results.title">Movie</h2>
-        <h2 v-else>Series</h2>
+        <div class="content gap-3">
 
-        <h4 v-if="results.title">{{ results.title }}</h4>
-        <h4 v-else>{{ results.name }}</h4>
-
-        <h5 v-if="results.original_title">{{ results.original_title }}</h5>
-        <h5 v-else>{{ results.original_name }}</h5>
-
-        <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
-        <h6 v-else>Non Disponibile</h6>
-        <div>{{ limitChars(results.overview, this.maxCharLimit) }}</div>
-        <div class="d-flex">
-          Vote:
-          <ul class="d-flex flex-row gap-1">
-            
-            <li v-for="_ in roundedVote" :key="_" v-if="this.roundedVote > 0">
-              <i class="fa-solid fa-star"></i>
-            </li>
-            <li v-else>
-              No reviews
-            </li>
-
-            <li v-for="_ in emptyStar" :key="_" v-if="this.roundedVote > 0">
-              <i class="fa-regular fa-star"></i>
-            </li>
-          </ul>
+          <h2 v-if="results.title">Movie</h2>
+          <h2 v-else>Series</h2>
+  
+          <h4 v-if="results.title">{{ results.title }}</h4>
+          <h4 v-else>{{ results.name }}</h4>
+  
+          <h5 v-if="results.original_title">{{ results.original_title }}</h5>
+          <h5 v-else>{{ results.original_name }}</h5>
+  
+          <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
+          <h6 v-else>Flag not found</h6>
+          <div v-if="results.overview">{{ limitChars(results.overview, this.maxCharLimit) }}</div>
+          <div v-else>Overview not found</div>
+          <div class="d-flex">
+            Vote:
+            <ul class="d-flex flex-row gap-1">
+              
+              <li v-for="_ in roundedVote" :key="_" v-if="this.roundedVote > 0">
+                <i class="fa-solid fa-star"></i>
+              </li>
+              <li v-else>
+                No reviews
+              </li>
+  
+              <li v-for="_ in emptyStar" :key="_" v-if="this.roundedVote > 0">
+                <i class="fa-regular fa-star"></i>
+              </li>
+            </ul>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -155,6 +160,9 @@ export default {
       i {
         color: yellow;
       }
+    }
+    .content{
+      @include flex(column,space-between,start)
     }
   }
 

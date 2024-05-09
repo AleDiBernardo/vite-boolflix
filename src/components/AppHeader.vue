@@ -6,7 +6,8 @@ import axios from "axios"
 export default{
     data(){
         return{
-            store
+            store,
+            links: ["Home","TV Series","Films","Original","Recently Added", "My Watchlist"]
         }
     },
     components:{
@@ -46,10 +47,14 @@ export default{
 <template>
 <header>
 <div class="container">
-    <div class="logo">
-        <a href="#">
+    <div class="navbar">
+
+        <a href="#" class="logo">
             <img src="../assets/logo.png" alt="">
         </a>
+    <ul class="d-flex flex-row gap-3">
+        <li v-for="link in links"><a href="#">{{ link }}</a></li>
+    </ul>
     </div>
     <AppSearchBar @filter="getResult"/>
     
@@ -78,6 +83,10 @@ header{
 
         .logo{
             max-width: 150px;
+        }
+        ul{
+            align-self: center;
+            margin: 0;
         }
     }
 }

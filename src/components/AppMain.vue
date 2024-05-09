@@ -29,7 +29,8 @@ export default {
           />
         </div>
       </div>
-      <div id="search" v-else>
+      <div id="search" class="d-flex flex-column text-center gap-4" v-else>
+        <i class="fa-solid fa-magnifying-glass fs-1 text-light"></i>
         <h1>Search for something</h1>
       </div>
     </div>
@@ -46,7 +47,7 @@ main{
     padding: 30px 0;
     height: calc(100vh - $header-heigth);
     background-color: black;
-    // background-image: url(../assets/pattern.jpg);
+   
     
     
 
@@ -63,6 +64,7 @@ main{
         transform: translate(-50%, -50%);
 
       }
+     
     }
 }
 </style>
