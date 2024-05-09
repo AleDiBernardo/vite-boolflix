@@ -7,7 +7,8 @@ export default{
     data(){
         return{
             store,
-            links: ["Home","TV Series","Films","Original","Recently Added", "My Watchlist"]
+            links: ["Home","TV Series","Films","Original","Recently Added", "My Watchlist"],
+            activeIndex: null
         }
     },
     components:{
@@ -39,7 +40,13 @@ export default{
                 this.store.placeHolder = "Cannot be empty"
             }
             
+        },
+        activateLink(index) {
+        if (this.activeIndex !== null) {
+            this.activeIndex = null;
         }
+        this.activeIndex = index;
+    }
     }
 }
 </script>
@@ -53,7 +60,7 @@ export default{
             <img src="../assets/logo.png" alt="">
         </a>
     <ul class="d-flex flex-row gap-3">
-        <li v-for="link in links"><a href="#">{{ link }}</a></li>
+        <li v-for="(link,index) in links" @click="activateLink(index)"><a href="#" :class="{active : index === activeIndex}">{{ link }}</a></li>
     </ul>
     </div>
     <AppSearchBar @filter="getResult"/>
@@ -87,6 +94,10 @@ header{
         ul{
             align-self: center;
             margin: 0;
+        }
+
+        .active {
+            color: red;
         }
     }
 }
