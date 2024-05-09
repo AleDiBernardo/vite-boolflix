@@ -7,13 +7,16 @@ export default {
     Image() {
       return `https://image.tmdb.org/t/p/w342${this.results.poster_path}`;
     },
+    
   },
   data() {
     return {
       isFlag: true,
       roundedVote: Math.ceil(this.results.vote_average / 2),
+      maxCharLimit: 150
     };
   },
+  
   methods: {
     getFlag(curMovie) {
       console.log(curMovie);
@@ -45,6 +48,11 @@ export default {
 
       return new URL(`../assets/${flag}`, import.meta.url).href;
     },
+    limitChars(value,maxLength){
+      if (!value) return '';
+      if (value.length <= maxLength) return value;
+      return value.substring(0, maxLength) + '...';
+    }
   },
 };
 </script>
@@ -72,6 +80,7 @@ export default {
 
         <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
         <h6 v-else>Non Disponibile</h6>
+        <div>{{ limitChars(results.overview,this.maxCharLimit) }}</div>
         <div class="d-flex">
           Vote:
           <ul class="d-flex flex-row gap-1">
@@ -111,11 +120,11 @@ export default {
 
   .card-back {
     display: none;
-    background-color: lightcoral;
+    background-color: black;
+    color: white;
     height: 100%;
     border-radius: 5px;
     padding: 5px;
-    // backface-visibility: hidden;
 
     img {
       max-width: 15%;
