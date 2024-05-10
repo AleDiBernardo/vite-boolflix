@@ -28,14 +28,17 @@ export default {
       },
     };
   },
+  created() {
+    this.getMovie(this.params, this.movieDiscover);
+    this.getSeries(this.params, this.seriesDiscover);
+  },
   components: {
     AppSearchBar,
   },
   methods: {
     getResult() {
       if (this.store.userQuery !== "") {
-
-        this.params.query = this.store.userQuery
+        this.params.query = this.store.userQuery;
 
         this.getMovie(this.params, this.movieSearch);
         this.getSeries(this.params, this.seriesSearch);
@@ -59,7 +62,6 @@ export default {
       this.store.seriesList = [];
       this.params.with_networks = null;
 
-      
       let call;
 
       switch (this.links[this.activeIndex]) {
@@ -80,8 +82,8 @@ export default {
           this.getSeries(this.params, this.seriesDiscover);
           break;
         case "Home":
-          this.getMovie(this.params, this.movieSearch);
-          this.getSeries(this.params, this.seriesSearch);
+          this.getMovie(this.params, this.movieDiscover);
+          this.getSeries(this.params, this.seriesDiscover);
           break;
         default:
           this.store.movieList = [];
