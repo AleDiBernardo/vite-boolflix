@@ -65,8 +65,10 @@ main{
         @include flex(column,center,center);
 
         img{
+          max-width: 85%;
           border-radius: 10px;
         }
+        text-align: center;
 
       }
 
