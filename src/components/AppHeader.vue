@@ -3,6 +3,7 @@ import AppSearchBar from "./AppSearchBar.vue";
 import { store } from "../store.js";
 import axios from "axios";
 
+
 export default {
   data() {
     return {
@@ -128,23 +129,7 @@ export default {
 </script>
 
 <template>
-  <!-- <header>
-    <div class="container">
-      <div class="navbar">
-        <a href="#" class="logo">
-          <img src="../assets/logo.png" alt="" />
-        </a>
-        <ul class="d-flex flex-row gap-3">
-          <li v-for="(link, index) in links" @click="activateLink(index)">
-            <a href="#" :class="{ active: index === activeIndex }">{{
-              link
-            }}</a>
-          </li>
-        </ul>
-      </div>
-      <AppSearchBar @filter="getResult" />
-    </div>
-  </header> -->
+
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="#">
@@ -158,6 +143,7 @@ export default {
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        @click="store.isToggler = !store.isToggler "
       >
         <span class="navbar-toggler-icon" id="toggler-icon"></span>
       </button>
@@ -168,12 +154,7 @@ export default {
               link
             }}</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
+         
         </ul>
         <AppSearchBar @filter="getResult" />
       </div>
@@ -187,7 +168,7 @@ export default {
 
 nav {
   background-color: black;
-  height: $header-heigth;
+  min-height: $header-heigth;
 
   .active {
     color: white;
@@ -202,38 +183,4 @@ nav {
     border-radius: 5px;
   }
 }
-
-// header {
-//   @include flex(row, center, center);
-
-//   width: 100%;
-//   height: $header-heigth;
-//   padding: 10px 0;
-//   background-color: $primary-color;
-
-//   .container {
-//     @include flex(row, space-between, center);
-
-// .logo {
-//   max-width: 150px;
-// }
-//     ul {
-//       align-self: center;
-//       margin: 0;
-//       li {
-//         a {
-//           color: lightgray;
-//           &:hover {
-//             color: red;
-//           }
-//         }
-//       }
-//     }
-
-// .active {
-//   color: white;
-//   font-weight: bold;
-// }
-//   }
-// }
 </style>

@@ -6,6 +6,7 @@ export const store = reactive({
     seriesList: null,
     userQuery: '',
     placeHolder: 'Es: Harry Potter',
-    isWatchlist: false
+    isWatchlist: false,
+    isToggler: false
     
 });

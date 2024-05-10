@@ -15,8 +15,8 @@ export default {
 </script>
 
 <template>
-  <main>
-    <div class="container">
+  <main >
+    <div class="container" :class="{pb: store.isToggler}">
       <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2" v-if="(store.movieList !== null || store.seriesList !== null)">
         <div class="col p-2" v-for="curMovie in store.movieList">
           <AppCard
@@ -29,7 +29,10 @@ export default {
           />
         </div>
       </div>
-      <div id="search" class="d-flex flex-column text-center gap-4" v-if="store.isWatchlist">
+      
+    </div>
+    <div class="container h-100" v-if="store.isWatchlist">
+      <div id="search" class="gap-4">
         <img src="../assets/user.png" alt="">
         <h1>Search for something</h1>
       </div>
@@ -44,24 +47,24 @@ export default {
 
 main{
     overflow-y: scroll;
-    padding: 30px 0;
+    // padding: 30px 0;
     height: calc(100vh - $header-heigth);
     background-color: black;
    
-    
+    .pb{
+      padding-bottom: 260px
+    }
     
 
     .container {
-      @include flex(row, space-between, center);
+      @include flex(row, center, center);
       h1{
         color: white;
       }
 
       #search{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include flex(column,center,center);
+        // transform: translate(-50%, -50%);
 
         img{
           border-radius: 10px;
