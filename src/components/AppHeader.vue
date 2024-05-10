@@ -22,6 +22,10 @@ export default {
       seriesDiscover: "https://api.themoviedb.org/3/discover/tv",
       recentlyAddedMovie: "https://api.themoviedb.org/3/movie/now_playing",
       recentlyAddedSeries: "https://api.themoviedb.org/3/tv/popular",
+      params: {
+        api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
+        language: "it-IT",
+      },
     };
   },
   components: {
@@ -30,14 +34,11 @@ export default {
   methods: {
     getResult() {
       if (this.store.userQuery !== "") {
-        const params = {
-          query: this.store.userQuery,
-          api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
-          language: "it-IT",
-        };
 
-        this.getMovie(params, this.movieSearch);
-        this.getSeries(params, this.seriesSearch);
+        this.params.query = this.store.userQuery
+
+        this.getMovie(this.params, this.movieSearch);
+        this.getSeries(this.params, this.seriesSearch);
 
         this.store.userQuery = "";
         this.store.placeHolder = "Es: Harry Potter";
@@ -56,37 +57,31 @@ export default {
     getCurrentInfo() {
       this.store.movieList = [];
       this.store.seriesList = [];
+      this.params.with_networks = null;
 
-      let params = {
-        api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
-        language: "it-IT",
-      };
+      
       let call;
 
       switch (this.links[this.activeIndex]) {
         case "TV Series":
           call = this.seriesDiscover;
-          this.getSeries(params, call);
+          this.getSeries(this.params, call);
           break;
         case "Movies":
           call = this.movieDiscover;
-          this.getMovie(params, call);
+          this.getMovie(this.params, call);
           break;
         case "Recently Added":
-          this.getMovie(params, this.recentlyAddedMovie);
-          this.getSeries(params, this.recentlyAddedSeries);
+          this.getMovie(this.params, this.recentlyAddedMovie);
+          this.getSeries(this.params, this.recentlyAddedSeries);
           break;
         case "Original":
-          params = {
-            with_networks: 213,
-            api_key: "bca2cd4e0092d2eac7fdb4f97170e2fb",
-            language: "it-IT",
-          };
-          this.getSeries(params, this.seriesDiscover);
+          this.params.with_networks = 213;
+          this.getSeries(this.params, this.seriesDiscover);
           break;
         case "Home":
-          this.getMovie(params, this.movieSearch);
-          this.getSeries(params, this.seriesSearch);
+          this.getMovie(this.params, this.movieSearch);
+          this.getSeries(this.params, this.seriesSearch);
           break;
         default:
           this.store.movieList = [];
