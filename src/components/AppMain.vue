@@ -29,10 +29,10 @@ export default {
           />
         </div>
       </div>
-      <div id="search" class="d-flex flex-column text-center gap-4" v-else>
+      <!-- <div id="search" class="d-flex flex-column text-center gap-4" v-else>
         <i class="fa-solid fa-magnifying-glass fs-1 text-light"></i>
         <h1>Search for something</h1>
-      </div>
+      </div> -->
     </div>
   </main>
 </template>
