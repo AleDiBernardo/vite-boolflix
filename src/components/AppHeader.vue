@@ -44,10 +44,25 @@ export default {
         this.getSeries(this.params, this.seriesSearch);
 
         this.store.userQuery = "";
-        this.store.placeHolder = "Es: Harry Potter";
+        this.activeIndex = null;
+
+        const placeHolders = [
+          "Es: Harry Potter",
+          "Es: Flintstone",
+          "Es: Ozark",
+          "Es: Kung Fu Panda",
+          "Es: The Simpsons",
+          "Es: Arcane",
+        ];
+        const arrLength = placeHolders.length;
+        this.store.placeHolder =
+          placeHolders[this.randomIntFromInterval(0, arrLength - 1)];
       } else {
         this.store.placeHolder = "Cannot be empty";
       }
+    },
+    randomIntFromInterval(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
     },
     activateLink(index) {
       if (this.activeIndex !== null) {
@@ -61,6 +76,8 @@ export default {
       this.store.movieList = [];
       this.store.seriesList = [];
       this.params.with_networks = null;
+      this.store.isWatchlist = false;
+
 
       let call;
 
@@ -84,6 +101,9 @@ export default {
         case "Home":
           this.getMovie(this.params, this.movieDiscover);
           this.getSeries(this.params, this.seriesDiscover);
+          break;
+        case "My Watchlist":
+          this.store.isWatchlist = true;
           break;
         default:
           this.store.movieList = [];
