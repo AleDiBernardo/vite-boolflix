@@ -26,7 +26,7 @@ export default {
 
   methods: {
     getFlag(curMovie) {
-      console.log(curMovie);
+      // console.log(curMovie);
       let flag = "";
       switch (curMovie) {
         case "en":

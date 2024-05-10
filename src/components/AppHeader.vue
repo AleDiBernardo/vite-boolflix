@@ -31,6 +31,7 @@ export default {
   created() {
     this.getMovie(this.params, this.movieDiscover);
     this.getSeries(this.params, this.seriesDiscover);
+    
   },
   components: {
     AppSearchBar,
@@ -78,7 +79,6 @@ export default {
       this.params.with_networks = null;
       this.store.isWatchlist = false;
 
-
       let call;
 
       switch (this.links[this.activeIndex]) {
@@ -114,13 +114,13 @@ export default {
     getMovie(params, call) {
       axios.get(call, { params }).then((resp) => {
         this.store.movieList = resp.data.results;
-        console.log("Movie: " + this.store.movieList);
+        // console.log("Movie: " + this.store.movieList);
       });
     },
     getSeries(params, call) {
       axios.get(call, { params }).then((resp) => {
         this.store.seriesList = resp.data.results;
-        console.log("Series: " + this.store.seriesList);
+        // console.log("Series: " + this.store.seriesList);
       });
     },
   },
@@ -128,7 +128,7 @@ export default {
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <div class="container">
       <div class="navbar">
         <a href="#" class="logo">
@@ -144,44 +144,96 @@ export default {
       </div>
       <AppSearchBar @filter="getResult" />
     </div>
-  </header>
+  </header> -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="../assets/logo.png" alt="" class="logo" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon" id="toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
+          <li v-for="(link, index) in links" @click="activateLink(index)">
+            <a href="#" :class="{ active: index === activeIndex }">{{
+              link
+            }}</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li> -->
+        </ul>
+        <AppSearchBar @filter="getResult" />
+      </div>
+    </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
 @use "../style/partials/mixins" as *;
 @use "../style/partials/variables" as *;
 
-header {
-  @include flex(row, center, center);
-
-  width: 100%;
+nav {
+  background-color: black;
   height: $header-heigth;
-  padding: 10px 0;
-  background-color: $primary-color;
 
-  .container {
-    @include flex(row, space-between, center);
+  .active {
+    color: white;
+    font-weight: bold;
+  }
+  .logo {
+    max-width: 150px;
+  }
 
-    .logo {
-      max-width: 150px;
-    }
-    ul {
-      align-self: center;
-      margin: 0;
-      li {
-        a {
-          color: lightgray;
-          &:hover {
-            color: red;
-          }
-        }
-      }
-    }
-
-    .active {
-      color: white;
-      font-weight: bold;
-    }
+  #toggler-icon {
+    background-color: red;
+    border-radius: 5px;
   }
 }
+
+// header {
+//   @include flex(row, center, center);
+
+//   width: 100%;
+//   height: $header-heigth;
+//   padding: 10px 0;
+//   background-color: $primary-color;
+
+//   .container {
+//     @include flex(row, space-between, center);
+
+// .logo {
+//   max-width: 150px;
+// }
+//     ul {
+//       align-self: center;
+//       margin: 0;
+//       li {
+//         a {
+//           color: lightgray;
+//           &:hover {
+//             color: red;
+//           }
+//         }
+//       }
+//     }
+
+// .active {
+//   color: white;
+//   font-weight: bold;
+// }
+//   }
+// }
 </style>
