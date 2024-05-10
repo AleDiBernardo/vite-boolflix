@@ -59,6 +59,7 @@ export default {
         const arrLength = placeHolders.length;
         this.store.placeHolder =
           placeHolders[this.randomIntFromInterval(0, arrLength - 1)];
+          this.store.isWatchlist = false;
       } else {
         this.store.placeHolder = "Cannot be empty";
       }

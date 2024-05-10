@@ -16,7 +16,7 @@ export default {
 
 <template>
   <main >
-    <div class="container" :class="{pb: store.isToggler}">
+    <div class="container" :class="{pb: store.isToggler && !store.isWatchlist}">
       <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2" v-if="(store.movieList !== null || store.seriesList !== null)">
         <div class="col p-2" v-for="curMovie in store.movieList">
           <AppCard
@@ -31,7 +31,7 @@ export default {
       </div>
       
     </div>
-    <div class="container h-100" v-if="store.isWatchlist">
+    <div class="container h-100" :class="{pb: store.isToggler}" v-if="store.isWatchlist">
       <div id="search" class="gap-4">
         <img src="../assets/user.png" alt="">
         <h1>Search for something</h1>
