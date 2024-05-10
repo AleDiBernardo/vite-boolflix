@@ -47,7 +47,6 @@ export default {
 
 main{
     overflow-y: scroll;
-    // padding: 30px 0;
     height: calc(100vh - $header-heigth);
     background-color: black;
    
@@ -64,7 +63,6 @@ main{
 
       #search{
         @include flex(column,center,center);
-        // transform: translate(-50%, -50%);
 
         img{
           border-radius: 10px;

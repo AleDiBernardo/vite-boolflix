@@ -19,8 +19,9 @@ export default {
   },
   data() {
     return {
-      isFlag: true,      
+      isFlag: true,
       maxCharLimit: 150,
+      maxTitleCharLimit: 30,
     };
   },
 
@@ -77,38 +78,35 @@ export default {
 
       <div class="card-back">
         <div class="content gap-3">
-
           <h2 v-if="results.title">Movie</h2>
           <h2 v-else>Series</h2>
-  
+
           <h4 v-if="results.title">{{ results.title }}</h4>
           <h4 v-else>{{ results.name }}</h4>
-  
+
           <h5 v-if="results.original_title">{{ results.original_title }}</h5>
-          <h5 v-else>{{ results.original_name }}</h5>
-  
+          <h5 v-else>{{ limitChars(results.original_name, this.maxTitleCharLimit) }}</h5>
+
           <img v-if="isFlag" :src="getFlag(results.original_language)" alt="" />
           <h6 v-else>Flag not found</h6>
-          <div v-if="results.overview">{{ limitChars(results.overview, this.maxCharLimit) }}</div>
+          <div v-if="results.overview">
+            {{ limitChars(results.overview, this.maxCharLimit) }}
+          </div>
           <div v-else>Overview not found</div>
           <div class="d-flex">
             Vote:
             <ul class="d-flex flex-row gap-1">
-              
               <li v-for="_ in roundedVote" :key="_" v-if="this.roundedVote > 0">
                 <i class="fa-solid fa-star"></i>
               </li>
-              <li v-else>
-                No reviews
-              </li>
-  
+              <li v-else>No reviews</li>
+
               <li v-for="_ in emptyStar" :key="_" v-if="this.roundedVote > 0">
                 <i class="fa-regular fa-star"></i>
               </li>
             </ul>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -131,6 +129,7 @@ export default {
     height: 100%;
     transition: transform 0.5s;
     transform-style: preserve-3d;
+    overflow: hidden;
   }
 
   &:hover .card-inner {
@@ -161,8 +160,8 @@ export default {
         color: yellow;
       }
     }
-    .content{
-      @include flex(column,space-between,start)
+    .content {
+      @include flex(column, space-between, start);
     }
   }
 
@@ -183,7 +182,6 @@ export default {
     backface-visibility: hidden;
     border: 3px solid red;
     border-radius: 5px;
-
   }
 
   .thumb {
@@ -194,7 +192,7 @@ export default {
 
   .card-front.notFound {
     @include flex(row, center, center);
-    background-color:white;
+    background-color: white;
     text-transform: uppercase;
     font-size: 20px;
     border-radius: 5px;
@@ -202,7 +200,6 @@ export default {
     background-image: url(../assets/icon.ico);
     background-repeat: no-repeat;
     background-position: center;
-
   }
 }
 </style>

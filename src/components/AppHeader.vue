@@ -3,7 +3,6 @@ import AppSearchBar from "./AppSearchBar.vue";
 import { store } from "../store.js";
 import axios from "axios";
 
-
 export default {
   data() {
     return {
@@ -32,13 +31,14 @@ export default {
   created() {
     this.getMovie(this.params, this.movieDiscover);
     this.getSeries(this.params, this.seriesDiscover);
-    
   },
   components: {
     AppSearchBar,
   },
   methods: {
     getResult() {
+      this.store.isToggler = false;
+
       if (this.store.userQuery !== "") {
         this.params.query = this.store.userQuery;
 
@@ -59,7 +59,7 @@ export default {
         const arrLength = placeHolders.length;
         this.store.placeHolder =
           placeHolders[this.randomIntFromInterval(0, arrLength - 1)];
-          this.store.isWatchlist = false;
+        this.store.isWatchlist = false;
       } else {
         this.store.placeHolder = "Cannot be empty";
       }
@@ -68,11 +68,11 @@ export default {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
     activateLink(index) {
+      this.store.isToggler = false;
       if (this.activeIndex !== null) {
         this.activeIndex = null;
       }
       this.activeIndex = index;
-
       this.getCurrentInfo();
     },
     getCurrentInfo() {
@@ -87,6 +87,7 @@ export default {
         case "TV Series":
           call = this.seriesDiscover;
           this.getSeries(this.params, call);
+
           break;
         case "Movies":
           call = this.movieDiscover;
@@ -130,7 +131,6 @@ export default {
 </script>
 
 <template>
-
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="#">
@@ -138,24 +138,28 @@ export default {
       </a>
       <button
         class="navbar-toggler"
+        :class="{ collapsed: !store.isToggler }"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
-        aria-expanded="false"
+        :aria-expanded="store.isToggler"
         aria-label="Toggle navigation"
-        @click="store.isToggler = !store.isToggler "
+        @click="store.isToggler = !store.isToggler"
       >
         <span class="navbar-toggler-icon" id="toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div
+        class="collapse navbar-collapse"
+        :class="{ show: store.isToggler }"
+        id="navbarSupportedContent"
+      >
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
           <li v-for="(link, index) in links" @click="activateLink(index)">
             <a href="#" :class="{ active: index === activeIndex }">{{
               link
             }}</a>
           </li>
-         
         </ul>
         <AppSearchBar @filter="getResult" />
       </div>
